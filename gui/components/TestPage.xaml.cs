@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace dfbanka.gui.pages
+namespace dfbanka.gui.components
 {
     public partial class TestPage : Grid
     {
@@ -23,14 +25,15 @@ namespace dfbanka.gui.pages
 
         private async void BtnGetXml_Click(object sender, RoutedEventArgs e)
         {
-            string token = this.config.TokenFioBanka;
+            string url = this.config.BankaUrl;
+            string token = this.config.BankaToken;
             string from = "2018-08-01";
             string to = "2018-08-31";
             byte[] data = null;
 
             using (var client = new WebClient())
             {
-                data = await client.DownloadDataTaskAsync(new Uri($"https://www.fio.cz/ib_api/rest/periods/{token}/{from}/{to}/transactions.xml"));
+                data = await client.DownloadDataTaskAsync(new Uri($"{url}/ib_api/rest/periods/{token}/{from}/{to}/transactions.xml"));
             }
 
             if (data != null)
@@ -42,9 +45,9 @@ namespace dfbanka.gui.pages
         /// </summary>
         private async void BtnGetJson_Click(object sender, RoutedEventArgs e)
         {
-            string username = config.UsernameWordPress;
-            string password = config.PasswordWordPress;
-            string url = "https://divinitafashion.cz/index.php/wp-json/wc/v2/orders";
+            string username = config.WordpressUsername;
+            string password = config.WordpressPassword;
+            string url = $"{config.WordpressUrl}/index.php/wp-json/wc/v2/orders";
 
             WebRequest request = WebRequest.Create(url);
             request.PreAuthenticate = true;
@@ -59,8 +62,19 @@ namespace dfbanka.gui.pages
             using (var reader = new StreamReader(stream, Encoding.UTF8))
                 responseStr = reader.ReadToEnd();
 
-            if (responseStr == null)
-            { }
+            if (JsonConvert.DeserializeObject(responseStr) is JArray obj)
+                foreach (var tkn in obj)
+                {
+                    var order = new OrdersPage.Order(tkn);
+
+                    if (!MyWindow.Appka.Orders.ContainsKey(order.Id))
+                    {
+                        App.Current.Dispatcher.Invoke(() =>
+                        {
+                            MyWindow.Appka.Orders.Add(order.Id, order);
+                        });
+                    }
+                }
         }
     }
 }

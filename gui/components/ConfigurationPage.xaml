@@ -1,4 +1,4 @@
-﻿<StackPanel x:Class="dfbanka.gui.pages.ConfigurationPage"
+﻿<StackPanel x:Class="dfbanka.gui.components.ConfigurationPage"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -18,9 +18,19 @@
         </Style>
     </StackPanel.Resources>
 
+    <TextBlock Text="Url fio banky:"
+               Style="{StaticResource ctrls}" />
+    <TextBox x:Name="fioUrlTxBx"
+             Style="{StaticResource ctrls}" />
+
     <TextBlock Text="Token fio banky:"
                Style="{StaticResource ctrls}" />
     <TextBox x:Name="fioTokenTxBx"
+             Style="{StaticResource ctrls}" />
+
+    <TextBlock Text="Wordpress url:"
+               Style="{StaticResource ctrls}" />
+    <TextBox x:Name="wpUrlTxBx"
              Style="{StaticResource ctrls}" />
 
     <TextBlock Text="Wordpress uživatelské jméno:"

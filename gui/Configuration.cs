@@ -2,8 +2,10 @@
 {
     public class Configuration
     {
-        public string TokenFioBanka { get; set; }
-        public string UsernameWordPress { get; set; }
-        public string PasswordWordPress { get; set; }
+        public string BankaUrl { get; set; }
+        public string BankaToken { get; set; }
+        public string WordpressUsername { get; set; }
+        public string WordpressPassword { get; set; }
+        public string WordpressUrl { get; set; }
     }
 }

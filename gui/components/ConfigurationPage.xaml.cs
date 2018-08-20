@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace dfbanka.gui.pages
+namespace dfbanka.gui.components
 {
     public partial class ConfigurationPage : StackPanel
     {
@@ -13,9 +13,11 @@ namespace dfbanka.gui.pages
         {
             var configuration = new Configuration()
             {
-                TokenFioBanka = fioTokenTxBx.Text.Trim(),
-                UsernameWordPress = wpNameTxBx.Text.Trim(),
-                PasswordWordPress = wpPsswdTxBx.Text.Trim()
+                BankaUrl = fioUrlTxBx.Text.Trim(),
+                BankaToken = fioTokenTxBx.Text.Trim(),
+                WordpressUrl = wpUrlTxBx.Text.Trim(),
+                WordpressUsername = wpNameTxBx.Text.Trim(),
+                WordpressPassword = wpPsswdTxBx.Text.Trim()
             };
 
             MyWindow.Appka.SaveConfiguration(configuration);

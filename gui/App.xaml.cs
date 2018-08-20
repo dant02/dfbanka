@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Text;
 using System.Windows;
 using System.Xml.Serialization;
+using static dfbanka.gui.components.OrdersPage;
 
 namespace dfbanka.gui
 {
@@ -16,9 +18,13 @@ namespace dfbanka.gui
             this.FileName = Path.Combine(this.DataDir, @"config.xml");
         }
 
+        public ObservableConcurrentDictionary<object, Order> Orders { get; private set; }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            this.Orders = new ObservableConcurrentDictionary<object, Order>();
 
             MyWindow.Instance.Show();
         }
