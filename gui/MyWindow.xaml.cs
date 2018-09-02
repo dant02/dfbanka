@@ -13,7 +13,9 @@ namespace dfbanka.gui
 
         public static App Appka { get { return App.Current as App; } }
 
-        public List<FrameworkElement> RegisteredPages { get; } = new List<FrameworkElement>();
+        public List<FrameworkElement> RegisteredPages { get; } = new List<FrameworkElement>() {
+            components.ConfigurationPage.Instance
+        };
 
         public static readonly DependencyProperty CurrentPageProperty = DependencyProperty.Register("CurrentPage", typeof(FrameworkElement), typeof(MyWindow));
 
@@ -27,9 +29,8 @@ namespace dfbanka.gui
 
         private MyWindow()
         {
-            RegisteredPages.Add(new components.TestPage());
-            RegisteredPages.Add(new components.OrdersPage());
-            RegisteredPages.Add(new components.ConfigurationPage());
+            RegisteredPages.Insert(0, new components.OrdersPage());
+            RegisteredPages.Insert(0, new components.TestPage());
 
             this.CurrentPage = RegisteredPages[0];
 

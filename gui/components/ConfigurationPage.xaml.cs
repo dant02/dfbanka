@@ -1,10 +1,15 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 
 namespace dfbanka.gui.components
 {
     public partial class ConfigurationPage : StackPanel
     {
-        public ConfigurationPage()
+        private static Lazy<ConfigurationPage> lazy = new Lazy<ConfigurationPage>(() => new ConfigurationPage());
+
+        public static ConfigurationPage Instance { get { return lazy.Value; } }
+
+        private ConfigurationPage()
         {
             InitializeComponent();
         }

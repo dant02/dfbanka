@@ -1,15 +1,14 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.IO;
+﻿using System;
 using System.Net;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using dfbanka.gui.api;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace dfbanka.gui.components
 {
-    public partial class TestPage : Grid
+    public partial class TestPage : StackPanel
     {
         private Configuration config = null;
 
@@ -49,18 +48,7 @@ namespace dfbanka.gui.components
             string password = config.WordpressPassword;
             string url = $"{config.WordpressUrl}/index.php/wp-json/wc/v2/orders";
 
-            WebRequest request = WebRequest.Create(url);
-            request.PreAuthenticate = true;
-            var encoded = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(username + ":" + password));
-            request.Headers.Add("Authorization", "Basic " + encoded);
-
-            HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync();
-
-            string responseStr = string.Empty;
-
-            using (var stream = response.GetResponseStream())
-            using (var reader = new StreamReader(stream, Encoding.UTF8))
-                responseStr = reader.ReadToEnd();
+            string responseStr = await WordPress.Get(username, password, url);
 
             if (JsonConvert.DeserializeObject(responseStr) is JArray obj)
                 foreach (var tkn in obj)
@@ -75,6 +63,18 @@ namespace dfbanka.gui.components
                         });
                     }
                 }
+        }
+
+        private async void BtnPutOrder_Click(object sender, RoutedEventArgs e)
+        {
+            string username = config.WordpressUsername;
+            string password = config.WordpressPassword;
+            int idOrder = 167;
+            string url = $"{config.WordpressUrl}/index.php/wp-json/wc/v2/orders/{idOrder}";
+
+            string payload = JsonConvert.SerializeObject(new { status = "completed" });
+
+            await WordPress.Put(username, password, url, payload);
         }
     }
 }

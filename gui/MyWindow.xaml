@@ -6,7 +6,9 @@
                   xmlns:local="clr-namespace:dfbanka.gui"
                   mc:Ignorable="d"
                   x:Name="wnd"
-        Title="MainWindow" Height="450" Width="800">
+                  Title="MainWindow"
+                  Height="450"
+                  Width="800">
 
     <DockPanel>
         <Border DockPanel.Dock="Left"
