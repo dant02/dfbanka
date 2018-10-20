@@ -13,7 +13,8 @@
     <DockPanel>
         <Border DockPanel.Dock="Left"
                 BorderBrush="Black"
-                BorderThickness="0,0,1,0" Width="150px">
+                BorderThickness="0,0,1,0"
+                Width="150px">
             <ItemsControl ItemsSource="{Binding Pages, ElementName=wnd}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
