@@ -14,15 +14,24 @@ namespace dfbanka.gui.components
             InitializeComponent();
         }
 
+        public void SetConfiguration(Configuration configuration)
+        {
+            fioUrlTxBx.Text = configuration.BankaUrl;
+            fioTokenTxBx.Password = configuration.BankaToken;
+            wpUrlTxBx.Text = configuration.WordpressUrl;
+            wpNameTxBx.Text = configuration.WordpressUsername;
+            wpPsswdTxBx.Password = configuration.WordpressPassword;
+        }
+
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var configuration = new Configuration()
             {
                 BankaUrl = fioUrlTxBx.Text.Trim(),
-                BankaToken = fioTokenTxBx.Text.Trim(),
+                BankaToken = fioTokenTxBx.Password.Trim(),
                 WordpressUrl = wpUrlTxBx.Text.Trim(),
                 WordpressUsername = wpNameTxBx.Text.Trim(),
-                WordpressPassword = wpPsswdTxBx.Text.Trim()
+                WordpressPassword = wpPsswdTxBx.Password.Trim()
             };
 
             MyWindow.Appka.SaveConfiguration(configuration);

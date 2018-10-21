@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Xml.Serialization;
+using dfbanka.gui.components;
 using static dfbanka.gui.components.OrdersPage;
 
 namespace dfbanka.gui
@@ -41,6 +42,8 @@ namespace dfbanka.gui
                 using (var fe = new StringReader(str))
                     result = (Configuration)xml.Deserialize(fe);
             }
+
+            ConfigurationPage.Instance.SetConfiguration(result);
 
             return result;
         }

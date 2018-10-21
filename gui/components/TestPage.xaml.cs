@@ -19,7 +19,7 @@ namespace dfbanka.gui.components
             config = MyWindow.Appka.LoadConfiguration();
 
             if (config == null)
-                throw new InvalidOperationException("Nepodařilo se nahrát konfiguraci");
+                config = new Configuration();
         }
 
         private async void BtnGetXml_Click(object sender, RoutedEventArgs e)

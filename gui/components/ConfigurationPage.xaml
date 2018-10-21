@@ -25,8 +25,8 @@
 
     <TextBlock Text="Token fio banky:"
                Style="{StaticResource ctrls}" />
-    <TextBox x:Name="fioTokenTxBx"
-             Style="{StaticResource ctrls}" />
+    <PasswordBox x:Name="fioTokenTxBx"
+                 Style="{StaticResource ctrls}" />
 
     <TextBlock Text="Wordpress url:"
                Style="{StaticResource ctrls}" />
@@ -40,8 +40,8 @@
 
     <TextBlock Text="Wordpress heslo:"
                Style="{StaticResource ctrls}" />
-    <TextBox x:Name="wpPsswdTxBx"
-             Style="{StaticResource ctrls}" />
+    <PasswordBox x:Name="wpPsswdTxBx"
+                 Style="{StaticResource ctrls}" />
 
     <Button Content="Uložit"
             Width="150"
