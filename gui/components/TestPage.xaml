@@ -8,16 +8,24 @@
       Name="Testování">
 
     <Button x:Name="BtnGetXml"
-                Grid.Column="0"
-                Grid.Row="0"
-                Click="BtnGetXml_Click"
-                Content="Get bank xml" />
+            Grid.Column="0"
+            Grid.Row="0"
+            Click="BtnGetXml_Click"
+            Content="Get bank xml" />
+
     <Button x:Name="BtnGetJson"
-                Grid.Column="1"
-                Grid.Row="0"
-                Click="BtnGetJson_Click"
-                Content="Get WP json" />
+            Grid.Column="1"
+            Grid.Row="0"
+            Click="BtnGetJson_Click"
+            Content="Get WP json" />
+
     <Button x:Name="BtnPutOrder"
             Click="BtnPutOrder_Click"
             Content="Update order" />
+
+    <TextBlock Text="Recipent of test email:" />
+    <TextBox x:Name="recipentTxBx" />
+    <Button x:Name="BtnMail"
+            Click="BtnMail_Click"
+            Content="Send mail" />
 </StackPanel>

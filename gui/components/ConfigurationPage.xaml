@@ -5,47 +5,51 @@
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
             mc:Ignorable="d"
             d:DesignHeight="450"
-            d:DesignWidth="800"
+            d:DesignWidth="300"
             Background="White"
             Name="Konfigurace"
             Orientation="Vertical">
 
     <StackPanel.Resources>
-        <Style x:Key="ctrls"
+        <Style x:Key="MyMargin"
                TargetType="FrameworkElement">
-            <Setter Property="Margin"
-                    Value="2" />
+            <Setter Property="Margin" Value="2" />
         </Style>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource MyMargin}" />
+        <Style TargetType="TextBox" BasedOn="{StaticResource MyMargin}" />
+        <Style TargetType="PasswordBox" BasedOn="{StaticResource MyMargin}" />
+        <Style TargetType="Button" BasedOn="{StaticResource MyMargin}" />
     </StackPanel.Resources>
 
-    <TextBlock Text="Url fio banky:"
-               Style="{StaticResource ctrls}" />
-    <TextBox x:Name="fioUrlTxBx"
-             Style="{StaticResource ctrls}" />
+    <TextBlock Text="Url fio banky:" />
+    <TextBox x:Name="fioUrlTxBx" />
 
-    <TextBlock Text="Token fio banky:"
-               Style="{StaticResource ctrls}" />
-    <PasswordBox x:Name="fioTokenTxBx"
-                 Style="{StaticResource ctrls}" />
+    <TextBlock Text="Token fio banky:" />
+    <PasswordBox x:Name="fioTokenTxBx" />
 
-    <TextBlock Text="Wordpress url:"
-               Style="{StaticResource ctrls}" />
-    <TextBox x:Name="wpUrlTxBx"
-             Style="{StaticResource ctrls}" />
+    <TextBlock Text="Wordpress url:" />
+    <TextBox x:Name="wpUrlTxBx" />
 
-    <TextBlock Text="Wordpress uživatelské jméno:"
-               Style="{StaticResource ctrls}" />
-    <TextBox x:Name="wpNameTxBx"
-             Style="{StaticResource ctrls}" />
+    <TextBlock Text="Wordpress uživatelské jméno:" />
+    <TextBox x:Name="wpNameTxBx" />
 
-    <TextBlock Text="Wordpress heslo:"
-               Style="{StaticResource ctrls}" />
-    <PasswordBox x:Name="wpPsswdTxBx"
-                 Style="{StaticResource ctrls}" />
+    <TextBlock Text="Wordpress heslo:" />
+    <PasswordBox x:Name="wpPsswdTxBx" />
+
+    <TextBlock Text="Mail server address" />
+    <TextBox x:Name="mailServerAddressTxBx" />
+
+    <TextBlock Text="Mail server port" />
+    <TextBox x:Name="mailServerPortTxBx" />
+
+    <TextBlock Text="Mail server user name" />
+    <TextBox x:Name="mailUsernameTxBx" />
+
+    <TextBlock Text="Mail server user password" />
+    <PasswordBox x:Name="mailPasswordTxBx" />
 
     <Button Content="Uložit"
             Width="150"
             HorizontalAlignment="Left"
-            Style="{StaticResource ctrls}"
             Click="Button_Click" />
 </StackPanel>

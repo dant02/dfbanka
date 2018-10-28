@@ -7,5 +7,9 @@
         public string WordpressUsername { get; set; }
         public string WordpressPassword { get; set; }
         public string WordpressUrl { get; set; }
+        public string MailServerAddress { get; set; }
+        public int MailServerPort { get; set; }
+        public string MailUsername { get; set; }
+        public string MailPassword { get; set; }
     }
 }

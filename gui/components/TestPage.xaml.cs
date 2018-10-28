@@ -76,5 +76,16 @@ namespace dfbanka.gui.components
 
             await WordPress.Put(username, password, url, payload);
         }
+
+        private void BtnMail_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(recipentTxBx.Text))
+            {
+                MessageBox.Show("Please fill recipent of test email");
+                return;
+            }
+
+            Mail.Send(config.MailServerAddress, config.MailServerPort, config.MailUsername, config.MailPassword, recipentTxBx.Text.Trim());
+        }
     }
 }
