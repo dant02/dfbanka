@@ -31,6 +31,7 @@ namespace dfbanka.gui
         {
             RegisteredPages.Insert(0, new components.OrdersPage());
             RegisteredPages.Insert(0, new components.TestPage());
+            RegisteredPages.Insert(0, components.ConsolePage.Instance);
 
             this.CurrentPage = RegisteredPages[0];
 

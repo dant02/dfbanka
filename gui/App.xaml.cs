@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Xml.Serialization;
 using dfbanka.gui.components;
+using dfbanka.gui.core;
 using static dfbanka.gui.components.OrdersPage;
 
 namespace dfbanka.gui
@@ -28,6 +29,8 @@ namespace dfbanka.gui
             this.Orders = new ObservableConcurrentDictionary<object, Order>();
 
             MyWindow.Instance.Show();
+
+            Runner.Instance.Start();
         }
 
         public Configuration LoadConfiguration()
