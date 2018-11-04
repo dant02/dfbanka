@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,7 +17,7 @@ namespace dfbanka.gui.components
         {
             InitializeComponent();
 
-            config = MyWindow.Appka.LoadConfiguration();
+            config = Files.Load<Configuration>(Files.Paths.ConfigXml);
 
             if (config == null)
                 config = new Configuration();
@@ -55,11 +56,12 @@ namespace dfbanka.gui.components
                 {
                     var order = new OrdersPage.Order(tkn);
 
-                    if (!MyWindow.Appka.Orders.ContainsKey(order.Id))
+                    var currentOrder = MyWindow.Appka.Orders.FirstOrDefault(f => f.Id == order.Id);
+                    if (currentOrder == null)
                     {
                         App.Current.Dispatcher.Invoke(() =>
                         {
-                            MyWindow.Appka.Orders.Add(order.Id, order);
+                            MyWindow.Appka.Orders.Add(order);
                         });
                     }
                 }

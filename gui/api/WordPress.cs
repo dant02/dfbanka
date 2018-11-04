@@ -30,8 +30,9 @@ namespace dfbanka.gui.api
                     await writer.WriteAsync(payload);
             }
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            string returnString = response.StatusCode.ToString();
+            string result = null;
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                result = response.StatusCode.ToString();
         }
 
         public static async Task<string> Get(string username, string password, string url)
@@ -39,10 +40,9 @@ namespace dfbanka.gui.api
             WebRequest request = WebRequest.Create(url);
             SetAuthenticationHeader(request, username, password);
 
-            var response = (HttpWebResponse)await request.GetResponseAsync();
-
             string responseStr = string.Empty;
 
+            using (var response = (HttpWebResponse)await request.GetResponseAsync())
             using (var stream = response.GetResponseStream())
             using (var reader = new StreamReader(stream, Encoding.UTF8))
                 responseStr = reader.ReadToEnd();

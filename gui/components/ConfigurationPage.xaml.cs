@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
+using dfbanka.gui.api;
 
 namespace dfbanka.gui.components
 {
@@ -12,6 +13,10 @@ namespace dfbanka.gui.components
         private ConfigurationPage()
         {
             InitializeComponent();
+
+            var config = Files.Load<Configuration>(Files.Paths.ConfigXml);
+
+            this.SetConfiguration(config);
         }
 
         public void SetConfiguration(Configuration configuration)
@@ -45,7 +50,7 @@ namespace dfbanka.gui.components
                 MailPassword = mailPasswordTxBx.Password.Trim()
             };
 
-            MyWindow.Appka.SaveConfiguration(configuration);
+            Files.Save(Files.Paths.ConfigXml, configuration);
         }
     }
 }

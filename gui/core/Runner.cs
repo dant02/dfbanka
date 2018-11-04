@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading;
-using dfbanka.gui.components;
 
 namespace dfbanka.gui.core
 {
@@ -15,20 +17,45 @@ namespace dfbanka.gui.core
 
         private Timer timer = null;
 
-        internal Runner()
+        private ILog log = null;
+
+        private List<Job> jobs = new List<Job>();
+
+        private Runner()
         {
         }
 
-        public void Start()
+        public void Start(ILog log)
         {
+            this.log = log;
             timer = new Timer(this.Callback, null, Interval, Timeout.Infinite);
+
+            jobs.Add(new Job(this.log));
         }
 
-        private void Callback(object state)
+        private async void Callback(object state)
         {
-            timer.Change(Interval, Timeout.Infinite);
+            foreach (var job in jobs.Where(f => f.LastRunUtc + f.Interval < DateTime.UtcNow).OrderBy(f => f.LastRunUtc))
+            {
+                var sw = Stopwatch.StartNew();
 
-            ConsolePage.Instance.Print("Timer signal");
+                try
+                {
+                    await job.Run();
+                }
+                catch (Exception ex)
+                {
+                    log.Print(ex.Message);
+                    log.Print(ex.StackTrace);
+                }
+                finally
+                {
+                    job.LastRunUtc = DateTime.UtcNow;
+                    this.log.Print($"job work: " + sw.Elapsed);
+                }
+            }
+
+            timer.Change(Interval, Timeout.Infinite);
         }
 
         public void Dispose()

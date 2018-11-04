@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using dfbanka.gui.core;
 
 namespace dfbanka.gui
 {
@@ -12,6 +13,8 @@ namespace dfbanka.gui
         public static MyWindow Instance { get { return lazy.Value; } }
 
         public static App Appka { get { return App.Current as App; } }
+
+        public ILog Log { get; private set; }
 
         public List<FrameworkElement> RegisteredPages { get; } = new List<FrameworkElement>() {
             components.ConfigurationPage.Instance
@@ -29,9 +32,11 @@ namespace dfbanka.gui
 
         private MyWindow()
         {
-            RegisteredPages.Insert(0, new components.OrdersPage());
+            this.Log = components.ConsolePage.Instance;
+
+            RegisteredPages.Insert(0, components.OrdersPage.Instance);
             RegisteredPages.Insert(0, new components.TestPage());
-            RegisteredPages.Insert(0, components.ConsolePage.Instance);
+            RegisteredPages.Insert(0, this.Log as components.ConsolePage);
 
             this.CurrentPage = RegisteredPages[0];
 

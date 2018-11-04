@@ -3,10 +3,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using dfbanka.gui.core;
 
 namespace dfbanka.gui.components
 {
-    public partial class ConsolePage : Border
+    public partial class ConsolePage : Border, ILog
     {
         private static Lazy<ConsolePage> lazy = new Lazy<ConsolePage>(() => new ConsolePage());
 

@@ -62,6 +62,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="api\Files.cs" />
     <Compile Include="api\Mail.cs" />
     <Compile Include="api\WordPress.cs" />
     <Compile Include="components\ConfigurationPage.xaml.cs">
@@ -79,6 +80,8 @@
     <Compile Include="components\TestPage.xaml.cs">
       <DependentUpon>TestPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="core\ILog.cs" />
+    <Compile Include="core\Job.cs" />
     <Compile Include="core\Runner.cs" />
     <Compile Include="WindowBase.cs" />
     <Page Include="components\ConsolePage.xaml">
