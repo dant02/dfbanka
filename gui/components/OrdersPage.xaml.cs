@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
-using dfbanka.gui.api;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace dfbanka.gui.components
@@ -15,10 +13,14 @@ namespace dfbanka.gui.components
     public partial class OrdersPage : Border
     {
         // https://docs.woocommerce.com/document/managing-orders/
+
+        public const string Status_Pending = "pending";
+        public const string Status_Processing = "processing";
+
         public static Dictionary<string, string> Statuses { get; } = new Dictionary<string, string>() {
-                { "pending", "Čeká na platbu" }, // Order received, no payment initiated.Awaiting payment (unpaid).
+                { Status_Pending, "Čeká na platbu" }, // Order received, no payment initiated.Awaiting payment (unpaid).
                 { "failed", "Selhalo" }, // Payment failed or was declined (unpaid). Note that this status may not show immediately and instead show as Pending until verified (e.g., PayPal).
-                { "processing", "Zpracovává se" }, // Payment received (paid) and stock has been reduced; order is awaiting fulfillment.All product orders require processing, except those that only contain products which are both Virtual and Downloadable.
+                { Status_Processing, "Zpracovává se" }, // Payment received (paid) and stock has been reduced; order is awaiting fulfillment.All product orders require processing, except those that only contain products which are both Virtual and Downloadable.
                 { "completed", "Dokončeno" }, // Order fulfilled and complete – requires no further action.
                 { "on-hold", "Čeká na vyřízení"}, // Awaiting payment – stock is reduced, but you need to confirm payment.
                 { "cancelled", "Zrušena" }, // Cancelled by an admin or the customer – stock is increased, no further action required.
@@ -150,15 +152,7 @@ namespace dfbanka.gui.components
 
             if (contextMenu.PlacementTarget is DataGridRow row && row.DataContext is Order order && menuItem.DataContext is KeyValuePair<string, string> pair)
             {
-                var config = Files.Load<Configuration>(Files.Paths.ConfigXml);
-
-                string username = config.WordpressUsername;
-                string password = config.WordpressPassword;
-                string url = $"{config.WordpressUrl}/index.php/wp-json/wc/v2/orders/{order.Id}";
-
-                string payload = JsonConvert.SerializeObject(new { status = pair.Key });
-
-                await WordPress.Put(username, password, url, payload);
+                await MyWindow.Appka.UpdateOrder(pair.Key, order.Id);
             }
         }
     }

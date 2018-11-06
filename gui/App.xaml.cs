@@ -1,7 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using dfbanka.gui.api;
 using dfbanka.gui.core;
+using Newtonsoft.Json;
 using static dfbanka.gui.components.OrdersPage;
 
 namespace dfbanka.gui
@@ -62,8 +65,17 @@ namespace dfbanka.gui
             Runner.Instance.Start(MyWindow.Instance.Log);
         }
 
-        public void UpdateOrder()
+        public async Task UpdateOrder(string newStatus, long idOrder)
         {
+            var config = Files.Load<Configuration>(Files.Paths.ConfigXml);
+
+            string username = config.WordpressUsername;
+            string password = config.WordpressPassword;
+            string url = $"{config.WordpressUrl}/index.php/wp-json/wc/v2/orders/{idOrder}";
+
+            string payload = JsonConvert.SerializeObject(new { status = newStatus });
+
+            await WordPress.Put(username, password, url, payload);
         }
     }
 }

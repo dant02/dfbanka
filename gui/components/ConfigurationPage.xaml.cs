@@ -21,6 +21,9 @@ namespace dfbanka.gui.components
 
         public void SetConfiguration(Configuration configuration)
         {
+            if (configuration == null)
+                return;
+
             fioUrlTxBx.Text = configuration.BankaUrl;
             fioTokenTxBx.Password = configuration.BankaToken;
             wpUrlTxBx.Text = configuration.WordpressUrl;
