@@ -9,34 +9,34 @@
         d:DesignHeight="450" d:DesignWidth="800"
         x:Name="Objednávky">
 
-    <DataGrid ItemsSource="{Binding Orders}"
-              AutoGenerateColumns="False"
-              IsReadOnly="True" Margin="1,0,-1,0">
-        <DataGrid.Resources>
-            <ContextMenu x:Key="ticketContextMenu"
-                         ItemsSource="{x:Static cmp:OrdersPage.Statuses}"
-                         MenuItem.Click="ContextMenu_Click"
-                         DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-            </ContextMenu>
-        </DataGrid.Resources>
-        <DataGrid.RowStyle>
-            <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
-                <Setter Property="ContextMenu" Value="{StaticResource ticketContextMenu}" />
-            </Style>
-        </DataGrid.RowStyle>
-        <DataGrid.Columns>
-            <DataGridTextColumn Header="Id"
-                                Binding="{Binding Id}" />
-            <DataGridTextColumn Header="Vytvořeno"
-                                Binding="{Binding CreatedOn, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" />
-            <DataGridTextColumn Header="Status"
-                                Binding="{Binding Status}" />
-            <DataGridTextColumn Header="Platební metoda"
-                                Binding="{Binding PaymentMethod}" />
-            <DataGridTextColumn Header="Celkem"
-                                Binding="{Binding Total}" />
-            <DataGridTextColumn Header="Faktura"
-                                Binding="{Binding InvoiceNr}" />
-        </DataGrid.Columns>
-    </DataGrid>
+  <DataGrid x:Name="grd"
+            AutoGenerateColumns="False"
+            IsReadOnly="True" Margin="1,0,-1,0">
+    <DataGrid.Resources>
+      <ContextMenu x:Key="ticketContextMenu"
+                   ItemsSource="{x:Static cmp:OrdersPage.Statuses}"
+                   MenuItem.Click="ContextMenu_Click"
+                   DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+      </ContextMenu>
+    </DataGrid.Resources>
+    <DataGrid.RowStyle>
+      <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
+        <Setter Property="ContextMenu" Value="{StaticResource ticketContextMenu}" />
+      </Style>
+    </DataGrid.RowStyle>
+    <DataGrid.Columns>
+      <DataGridTextColumn Header="Id"
+                          Binding="{Binding Id}" />
+      <DataGridTextColumn Header="Vytvořeno"
+                          Binding="{Binding CreatedOn, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" />
+      <DataGridTextColumn Header="Status"
+                          Binding="{Binding Status}" />
+      <DataGridTextColumn Header="Platební metoda"
+                          Binding="{Binding PaymentMethod}" />
+      <DataGridTextColumn Header="Celkem"
+                          Binding="{Binding Total}" />
+      <DataGridTextColumn Header="Faktura"
+                          Binding="{Binding InvoiceNr}" />
+    </DataGrid.Columns>
+  </DataGrid>
 </Border>

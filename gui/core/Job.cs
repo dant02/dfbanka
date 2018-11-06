@@ -59,6 +59,8 @@ namespace dfbanka.gui.core
                     else
                         App.Current.Dispatcher.Invoke(() => { MyWindow.Appka.Orders.Add(order); });
                 }
+
+            //MyWindow.Appka.IncompleteOrders.c
         }
 
         private async Task DownloadBank(Configuration config)

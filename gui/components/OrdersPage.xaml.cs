@@ -25,15 +25,19 @@ namespace dfbanka.gui.components
                 { "refunded", "Vráceno"  } // Refunded by an admin – no further action required.
             };
 
-        private static Lazy<OrdersPage> lazy = new Lazy<OrdersPage>(() => new OrdersPage());
+        public DataGrid Grid { get { return this.grd; } }
 
-        public static OrdersPage Instance { get { return lazy.Value; } }
-
-        private OrdersPage()
+        public OrdersPage()
         {
             this.DataContext = MyWindow.Appka;
 
             InitializeComponent();
+        }
+
+        public OrdersPage(string name, ICollectionView view) : this()
+        {
+            this.Name = name;
+            this.Grid.ItemsSource = view;
         }
 
         public class Order : INotifyPropertyChanged

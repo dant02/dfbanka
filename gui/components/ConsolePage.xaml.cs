@@ -73,7 +73,7 @@ namespace dfbanka.gui.components
 
                 hasText = true;
 
-                this.ScrollViewer.ScrollToEnd();
+                this.ScrollViewer?.ScrollToEnd();
             });
         }
     }

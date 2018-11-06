@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using dfbanka.gui.components;
 using dfbanka.gui.core;
 
 namespace dfbanka.gui
@@ -34,9 +35,14 @@ namespace dfbanka.gui
         {
             this.Log = components.ConsolePage.Instance;
 
-            RegisteredPages.Insert(0, components.OrdersPage.Instance);
-            RegisteredPages.Insert(0, new components.TestPage());
-            RegisteredPages.Insert(0, this.Log as components.ConsolePage);
+            RegisteredPages.Insert(0, new OrdersPage("Ostatní", Appka.InactiveOrders));
+            RegisteredPages.Insert(0, new OrdersPage("Nevyřízené", Appka.IncompleteOrders));
+
+            RegisteredPages.Add(this.Log as components.ConsolePage);
+
+#if DEBUG
+            RegisteredPages.Add(new components.TestPage());
+#endif
 
             this.CurrentPage = RegisteredPages[0];
 
