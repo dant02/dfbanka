@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -11,6 +13,9 @@ namespace dfbanka.gui
 {
     public partial class App : Application
     {
+        private static Mutex mutex = new Mutex(true, "B8EE3594-F46F-4063-BE1F-5C311AD3A58E");
+        private bool hasAquiredMutext = false;
+
         public App() : base()
         {
         }
@@ -19,6 +24,10 @@ namespace dfbanka.gui
         {
             Runner.Instance.Dispose();
 
+            if (this.hasAquiredMutext)
+                mutex.ReleaseMutex();
+
+            mutex.Dispose();
             base.OnExit(e);
         }
 
@@ -30,6 +39,15 @@ namespace dfbanka.gui
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            // https://stackoverflow.com/questions/19147/what-is-the-correct-way-to-create-a-single-instance-wpf-application
+            this.hasAquiredMutext = mutex.WaitOne(TimeSpan.Zero, true);
+
+            if (!this.hasAquiredMutext)
+            {
+                MessageBox.Show("One instance is already running");
+                Current.Shutdown(0);
+            }
 
             this.Orders = new ObservableCollection<Order>();
             this.IncompleteOrders = new ListCollectionView(this.Orders)
